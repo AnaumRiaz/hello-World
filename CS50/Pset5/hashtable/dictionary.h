@@ -20,7 +20,7 @@
 #define LENGTH 45
 
 //globalizing the number of words read from dictionary
-int n_words_dic = 0;
+int n_words_dic;
 
 //our struct for linked list
 typedef struct node
