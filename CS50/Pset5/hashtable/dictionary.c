@@ -8,18 +8,18 @@
  */
 
 
-#include<string.h>
-#include<strings.h>
+#include <string.h>
+#include <strings.h>
 #include <stdbool.h>
-#include<stdlib.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
 #include "dictionary.h"
 
-//globalizing the dictionary file pointer
+// globalizing the dictionary file pointer
 FILE* dic_inptr = NULL;
 
-//making an array of linkedlists (hashtablea)
+// making an array of linkedlists (hashtablea)
 node *hashtable[HTSIZE];
 
 /**
@@ -33,8 +33,9 @@ bool check(const char* word)
     // convert word to lowercase and store it in word_copy
     for (int i = 0; i < ls; i++)
     {
-       n_word[i] = tolower(word[i]);
+        n_word[i] = tolower(word[i]);
     }
+    
     n_word[ls] = '\0';
     int code = hashfn(n_word);
     node * a = hashtable[code];
@@ -60,17 +61,17 @@ bool check(const char* word)
 bool load(const char* dictionary)
 {    
     // open input file 
-    dic_inptr  = fopen(dictionary, "r");
+    dic_inptr = fopen(dictionary, "r");
     if (dic_inptr == NULL)
     {
         printf("Could not open dictionary\n");
         return false;
     }
    
-   //main part: reading from file and inserting in hashtable 
-   char word_dic[LENGTH + 1] = {'\0'};
-   n_words_dic = 0;
-	
+    // main part: reading from file and inserting in hashtable 
+    char word_dic[LENGTH + 1] = {'\0'};
+    n_words_dic = 0;
+   
     while (1)
     {
         fscanf(dic_inptr, "%s", word_dic);   
@@ -123,7 +124,7 @@ void delete_ll(node* head)
     
     while (temp != NULL)
     { 
-        temp = head -> next;
+        temp = head->next;
         free(head);
         head = temp;
     }
@@ -131,31 +132,30 @@ void delete_ll(node* head)
 }
     
 // Fowler-Nol-Vo implementation taken from prgramingalgorithms.com
- int hashfn(const char *str)
+int hashfn(const char *str)
 {
-    
     const unsigned int fnv_prime = 0x811C9DC5;
-	unsigned int hash = 0;
-	unsigned int i = 0;
+    unsigned int hash = 0;
+    unsigned int i = 0;
 
-	for (i = 0; i < strlen(str); str++, i++)
-	{
-		hash *= fnv_prime;
-		hash ^= (*str);
-	}
+    for (i = 0; i < strlen(str); str++, i++)
+    {
+        hash *= fnv_prime;
+        hash ^= (*str);
+    }
 
-	return hash%HTSIZE;
+    return hash % HTSIZE;
       
 }
 
-//returns size of linked list in a particular bucket
+// returns size of linked list in a particular bucket
 int size_ll(node* a)
 {
     int sizeofll = 0;
    
     if (a != NULL)
     {
-        sizeofll=1;
+        sizeofll = 1;
         while(a->next != NULL)
         {
             sizeofll++;
@@ -164,17 +164,16 @@ int size_ll(node* a)
         
         return sizeofll;
     }
-    else return 0;
+    else 
+        return 0;
 }
 
 
-//displays the hashtable and size of individual linked lists
+// displays the hashtable and size of individual linked lists
 
 void display()
 {
-     
-    
-     for(int i = 0; i <HTSIZE; i ++)
+    for(int i = 0; i < HTSIZE; i++)
     {
         int size = size_ll(hashtable[i]);
         printf("size of linked list at location %i is %i\n",i, size);
@@ -190,19 +189,18 @@ void display()
     
 }
 
-//inserts word in hashtable
-
-void insert(const char* word) 
+// inserts word in hashtable
+void insert(const char* word)
 {
-    int code = hashfn(word);
+    int code = hashfn(word); 
     node *element = malloc(sizeof(node));
     
-    //if its the first element
+    // if its the first element
     if (size_ll(hashtable[code]) == 0)
     {
-        strcpy( element->wordic , word);
+        strcpy(element->wordic , word);
         element->next = NULL;
-        hashtable [code] = element; 
+        hashtable[code] = element; 
     }
     else
     {
