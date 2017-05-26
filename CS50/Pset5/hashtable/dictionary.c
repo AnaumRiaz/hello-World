@@ -69,7 +69,8 @@ bool load(const char* dictionary)
    
    //main part: reading from file and inserting in hashtable 
    char word_dic[LENGTH + 1] = {'\0'};
-   
+   n_words_dic = 0;
+	
     while (1)
     {
         fscanf(dic_inptr, "%s", word_dic);   
