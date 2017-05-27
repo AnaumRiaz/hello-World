@@ -1,0 +1,44 @@
+0.  BMP:16M (24 bit color) 
+    Some also support 4.29 billion colors (32 bits).
+    JPEG:16M (24 bit color)
+    GIF:256 (8 bit color) 
+    PNG: PNG-24 supports 16M and PNG-8 support only 256
+        
+1.  GIF supports animation
+
+2.  Lossy compression will degrade the quality of the image by losing   some of the image data while a lossles compression will represent the image exactly as it was. Lossless compression requires more space than a lossy one.
+
+3.  JPEG does lossy compression
+
+4.  When a file is deleted, the metadata/location of the file is deleted from File Alloation table and that space is added to the 'free space' but the contents of the file are untouched and can be retrieved if one knows how.
+
+5.  Degaussing or Sanitize the hard disk by Overwriting the driveâ€™s data. This can be done manually or using sanitization tools e.g. Autoclave, eraser etc
+
+6.  stdint.h is a header file which defines and declares different types of integers having varying widths  e.g. signed integer, unsigned integers etc.
+
+7. For clarity and predictability. Using uint8_t means that we know the value assigned to it will be unsigned, a byte long and no more than a byte. So just by looking at the code, a programmer can understand the purpose of this variable. This also shows we know the amount of space we want in a file e.g. BMP header fields etc
+ 
+8.  BYTE: 1 byte
+	DWORD: 4 bytes
+	LONG: 4 bytes
+	WORD: 2 bytes
+	
+9.  The first two bytes of a BMP (type word) denotes bfType, which is the file type. Incase of a BMP file, it is "BM" or 0x4D42 or 19778(dec).
+ 	
+10. bfSize specifies the size, in bytes, of the bitmap file which is 246 bytes. biSize specifies the size of the infoHeader structure in bytes which is 40 bytes in a 24bit BMP.
+
+11. If biHeight is negative, it represents a top down DIP(Device independent bitmap). The rows(scanline) of the bitmap are saved in a way that the first row to be shown is at the top, next one below it and it progresses downard. In short the orgin of the picture is at the upper left corner. 
+
+12. The biBitCount member of the BITMAPINFOHEADER structure tells the number of bits to define a pixel. It also tells he maximum number of colors in the bitmap.
+
+13. fopen will return NULL if it cannot create the outfile to write to. This may happen when we do not have the permission to open the file or the filename is wrong among other reasons. 
+
+14. The third argument specifies how many elements we want to read, and we're always reading a struct so we only need 1 struct.
+
+15. Padding would be 3 bytes or 24 bits. Thats because we want a multiple of 4 and we already have 9 bytes. we need to append 3 more byte to make it 12. This is the value returned by line 70.
+  
+16. fseek() moves the pointer(file position) to a new location determined by its parameters. 
+
+17. SEEK_CUR checks and returns the address/position of where we are in the file. It SEEKS the CURrent position in the file.
+
+18. Rob Bowden holding a dog
