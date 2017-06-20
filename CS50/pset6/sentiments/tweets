@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import os
+from analyzer import Analyzer
+from helpers import  get_user_timeline
+from termcolor import colored
+from twython import Twython
+from twython import TwythonAuthError, TwythonError, TwythonRateLimitError
+import sys
+
+
+def main():
+    
+    #making sure that user has entered a twitter username
+    if len(sys.argv) != 2:
+        print("Usage: ./tweets @screen_name")
+        exit(1)
+    
+    screen_name = str(sys.argv[1])
+    
+    #calling this function from helpers.py to get 50 tweets
+    twee = get_user_timeline(screen_name, 50)
+    if twee == None:
+        sys.exit("No tweets")
+    
+
+    # absolute paths to lists
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+
+    # instantiate analyzer  
+    analyzer = Analyzer(positives, negatives)
+
+    #Traverse one tweet at a time and print the score and tweet in respective color
+    for tweet in twee:
+        score = analyzer.analyze(tweet)
+    
+        if score > 0:
+            print("{} {}".format(colored(score, "green"), colored(tweet, "green")))
+        elif score < 0:
+            print("{} {}".format(colored(score,"red"), colored(tweet, "red")))
+        else:
+            print("{} {}".format(colored(score,"yellow"), colored(tweet, "yellow")))
+    
+if __name__ == "__main__":
+    main()
