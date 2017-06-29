@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+   <table style="width:100%">
+  <tr>
+    <th>STOCK</th>
+    <th>SHARES</th> 
+    <th>PRICE</th>
+    <th>TRANSACTED</th>
+  </tr>
+
+   {%for row in rows%}
+  <tr>
+    <td>{{row.stock}}</td>
+    <td>{{row.shares}}</td>
+    <td>{{prices[row.stock] | usd}}</td>
+    <td>{{row.date}}</td>
+  </tr>
+  {%endfor%}
+
+</table>
+
+{% endblock %}

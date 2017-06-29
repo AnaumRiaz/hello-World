@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+   <table style="width:100%">
+  <tr>
+    <th>STOCK</th>
+    <th>SHARES</th> 
+    <th>PRICE</th>
+    <th>VALUE OF EACH HOLDING</th>
+  </tr>
+
+  {%for row in shares%}
+  <tr>
+    <td>{{row['stock']}}</td>
+    <td>{{row['sum(shares)']}}</td>
+    <td>{{sp[row['stock']]|usd}}</td>
+    <td>{{(row['sum(shares)'] * sp[row['stock']]) |usd }}</td>
+  </tr>
+  {%endfor%}
+
+<tr>
+    <td>CASH</td>
+    <td></td>
+    <td></td>
+    <td>{{cash |usd}}</td>
+  </tr>
+</table>
+<br><br><br>
+
+
+<big><b>Grand total</b>= {{((shares | gt(sp)) + cash) | usd}}</big>
+
+{% endblock %}
